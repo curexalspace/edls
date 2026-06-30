@@ -3,7 +3,7 @@ import { AuthContext } from '../App'
 import { useQuery } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
 import { 
-  Building, Users, Key, Calendar, ListChecks,
+  Building, Users, Key, Calendar, ListChecks, Phone,
   Plus, Trash2, LogOut, Copy, Check, RefreshCw, BarChart2
 } from 'lucide-react'
 import KPIManager from '../components/KPIManager'
@@ -335,29 +335,31 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="flex-1 flex flex-col bg-slate-950 text-slate-100 min-h-screen">
+    <div className="flex-1 flex flex-col bg-slate-950 text-slate-100 min-h-screen pb-16">
       {/* Top Header */}
-      <header className="bg-slate-900 border-b border-slate-800 sticky top-0 z-20">
+      <header className="bg-slate-900/80 backdrop-blur-md border-b border-slate-800/80 sticky top-0 z-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <BarChart2 className="w-6 h-6 text-brand-500" />
             <div>
-              <h1 className="text-lg font-bold text-white">System Admin Portal</h1>
+              <h1 className="text-base sm:text-lg font-bold text-white">System Admin Portal</h1>
               <p className="text-xs text-slate-400">
-                Staff Administrator: <strong className="text-slate-300">{authState.username}</strong>
+                <span className="hidden sm:inline">Staff Administrator: </span>
+                <strong className="text-slate-300">{authState.username}</strong>
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-3">
-            <a href="/hr/dashboard" className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-lg text-xs font-semibold transition-all">
-              HR Reports
+          <div className="flex items-center gap-2 sm:gap-3">
+            <a href="/hr/dashboard" className="px-2.5 py-1.5 sm:px-3 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-lg text-xs font-semibold transition-all">
+              HR <span className="hidden sm:inline">Reports</span>
             </a>
             <button
               onClick={handleLogout}
-              className="inline-flex items-center gap-2 px-3 py-1.5 border border-red-500/20 bg-red-950/20 rounded-lg text-xs font-semibold text-red-400 hover:bg-red-950/40 hover:border-red-500/40 transition-all"
+              className="inline-flex items-center justify-center w-8 h-8 sm:w-auto sm:h-auto sm:px-3 sm:py-1.5 border border-red-500/20 bg-red-950/20 rounded-lg text-xs font-semibold text-red-400 hover:bg-red-950/40 hover:border-red-500/40 transition-all"
+              title="Sign Out"
             >
               <LogOut className="w-3.5 h-3.5" />
-              Sign Out
+              <span className="hidden sm:inline ml-1.5">Sign Out</span>
             </button>
           </div>
         </div>
@@ -379,20 +381,20 @@ export default function AdminDashboard() {
             </div>
           </div>
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg flex items-center gap-4">
-            <div className="bg-violet-500/10 p-3 rounded-xl text-violet-400 border border-violet-500/20">
-              <Building className="w-5 h-5" />
-            </div>
-            <div>
-              <p className="text-xs text-slate-500 font-semibold uppercase">Departments</p>
-              <h4 className="text-xl font-bold text-white mt-0.5">{stats?.total_departments || 0}</h4>
-            </div>
-          </div>
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg flex items-center gap-4">
-            <div className="bg-amber-500/10 p-3 rounded-xl text-amber-400 border border-amber-500/20">
+            <div className="bg-emerald-500/10 p-3 rounded-xl text-emerald-400 border border-emerald-500/20">
               <Users className="w-5 h-5" />
             </div>
             <div>
-              <p className="text-xs text-slate-500 font-semibold uppercase">Employees Roster</p>
+              <p className="text-xs text-slate-500 font-semibold uppercase">Total Employees</p>
+              <h4 className="text-xl font-bold text-white mt-0.5">{stats?.total_employees || 0}</h4>
+            </div>
+          </div>
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg flex items-center gap-4">
+            <div className="bg-brand-500/10 p-3 rounded-xl text-brand-400 border border-brand-500/20">
+              <Users className="w-5 h-5" />
+            </div>
+            <div>
+              <p className="text-xs text-slate-500 font-semibold uppercase">Total Employees</p>
               <h4 className="text-xl font-bold text-white mt-0.5">{stats?.total_employees || 0}</h4>
             </div>
           </div>
@@ -408,7 +410,7 @@ export default function AdminDashboard() {
         </section>
 
         {/* Tab navigation */}
-        <nav className="flex border-b border-slate-800 gap-6 text-sm font-semibold">
+        <nav className="flex border-b border-slate-800 gap-6 text-sm font-semibold overflow-x-auto scrollbar-none whitespace-nowrap -mx-4 px-4 sm:mx-0 sm:px-0">
           {[
             { id: 'cycles', label: 'Appraisal Cycles', icon: Calendar },
             { id: 'departments', label: 'Entities & Departments', icon: Building },
@@ -422,7 +424,7 @@ export default function AdminDashboard() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 pb-4 border-b-2 transition-all ${
+                className={`flex items-center gap-2 pb-4 border-b-2 transition-all shrink-0 ${
                   isSelected ? 'border-brand-500 text-white' : 'border-transparent text-slate-500 hover:text-slate-300'
                 }`}
               >
@@ -840,6 +842,23 @@ export default function AdminDashboard() {
 
         </main>
       </div>
+
+      {/* Developer Contact Footer */}
+      <footer className="fixed bottom-0 left-0 right-0 z-50 bg-slate-900/60 backdrop-blur-md border-t border-slate-800/80 shadow-[0_-8px_30px_rgba(0,0,0,0.3)] py-3 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+          <p className="font-semibold text-slate-300">Contact me for your software</p>
+          <div className="flex items-center gap-4">
+            <a href="tel:07014704943" className="inline-flex items-center gap-1.5 hover:text-brand-400 transition-colors font-medium">
+              <Phone className="w-3.5 h-3.5 text-brand-500" />
+              07014704943
+            </a>
+            <span className="text-slate-700 hidden sm:inline">•</span>
+            <a href="https://x.com/NijaDeveloper" target="_blank" rel="noopener noreferrer" className="hover:text-brand-400 transition-colors font-medium">
+              NijaDeveloper
+            </a>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
 import { 
-  Key, UserCheck, Users, Shield, 
+  Key, UserCheck, Users, Shield, Phone,
   CheckCircle2, ChevronRight, ChevronLeft,
   HelpCircle, LogOut, Award, CheckSquare, Info 
 } from 'lucide-react'
@@ -260,62 +260,81 @@ export default function ReviewerPortal() {
   // SCREEN 1: VERIFY CODE
   if (!authState.is_reviewer) {
     return (
-      <div className="flex-1 min-h-screen bg-slate-950 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden">
+      <div className="flex-1 min-h-screen bg-slate-950 flex flex-col relative overflow-hidden pb-16">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-500/10 rounded-full blur-[120px] pointer-events-none"></div>
         
-        <div className="sm:mx-auto sm:w-full sm:max-w-md relative z-10 text-center">
-          <h1 className="text-3xl font-extrabold text-white tracking-tight">
-            Everight Peer Appraisals
-          </h1>
-          <p className="mt-2 text-sm text-slate-400">
-            A strictly anonymous feedback environment for professional development
-          </p>
-        </div>
+        <div className="flex-grow flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+          <div className="sm:mx-auto sm:w-full sm:max-w-md relative z-10 text-center">
+            <h1 className="text-3xl font-extrabold text-white tracking-tight">
+              Everight Peer Appraisals
+            </h1>
+            <p className="mt-2 text-sm text-slate-400">
+              A strictly anonymous feedback environment for professional development
+            </p>
+          </div>
 
-        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10 px-4">
-          <div className="bg-slate-900/60 backdrop-blur-xl py-8 px-6 border border-slate-800 shadow-2xl rounded-2xl sm:px-10">
-            <div className="flex items-center gap-3 bg-slate-950/40 p-4 border border-slate-800 rounded-xl mb-6 text-sm text-slate-300">
-              <Shield className="w-5 h-5 text-brand-400 shrink-0" />
-              <span>We never link your voting credentials to the scores you submit.</span>
-            </div>
-
-            <form className="space-y-5" onSubmit={handleVerifyCode}>
-
-              <div>
-                <label className="block text-sm font-medium text-slate-300">
-                  Department Access Key
-                </label>
-                <div className="mt-1 relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Key className="h-5 w-5 text-slate-500" />
-                  </div>
-                  <input
-                    type="text"
-                    required
-                    value={code}
-                    onChange={(e) => setCode(e.target.value)}
-                    className="block w-full pl-10 pr-3 py-2.5 border border-slate-700 rounded-xl bg-slate-950/50 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent text-sm transition-all uppercase"
-                    placeholder="e.g. PATH-CURR-E3A2"
-                  />
-                </div>
+          <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10 px-4">
+            <div className="bg-slate-900/60 backdrop-blur-xl py-8 px-6 border border-slate-800 shadow-2xl rounded-2xl sm:px-10">
+              <div className="flex items-center gap-3 bg-slate-950/40 p-4 border border-slate-800 rounded-xl mb-6 text-sm text-slate-300">
+                <Shield className="w-5 h-5 text-brand-400 shrink-0" />
+                <span>We never link your voting credentials to the scores you submit.</span>
               </div>
 
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-semibold text-white bg-brand-600 hover:bg-brand-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-950 focus:ring-brand-500 disabled:opacity-50 transition-all"
-              >
-                {loading ? 'Verifying Key...' : 'Access Portal'}
-              </button>
-            </form>
+              <form className="space-y-5" onSubmit={handleVerifyCode}>
 
-            <div className="mt-6 border-t border-slate-800 pt-6 text-center">
-              <a href="/login" className="text-sm font-medium text-slate-400 hover:text-slate-300 transition-colors">
-                Staff Admin Login &rarr;
-              </a>
+                <div>
+                  <label className="block text-sm font-medium text-slate-300">
+                    Department Access Key
+                  </label>
+                  <div className="mt-1 relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <Key className="h-5 w-5 text-slate-500" />
+                    </div>
+                    <input
+                      type="text"
+                      required
+                      value={code}
+                      onChange={(e) => setCode(e.target.value)}
+                      className="block w-full pl-10 pr-3 py-2.5 border border-slate-700 rounded-xl bg-slate-950/50 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent text-sm transition-all uppercase"
+                      placeholder="e.g. PATH-CURR-E3A2"
+                    />
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-semibold text-white bg-brand-600 hover:bg-brand-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-950 focus:ring-brand-500 disabled:opacity-50 transition-all"
+                >
+                  {loading ? 'Verifying Key...' : 'Access Portal'}
+                </button>
+              </form>
+
+              <div className="mt-6 border-t border-slate-800 pt-6 text-center">
+                <a href="/login" className="text-sm font-medium text-slate-400 hover:text-slate-300 transition-colors">
+                  Staff Admin Login &rarr;
+                </a>
+              </div>
             </div>
           </div>
         </div>
+
+        {/* Developer Contact Footer */}
+        <footer className="fixed bottom-0 left-0 right-0 z-50 bg-slate-900/60 backdrop-blur-md border-t border-slate-800/80 shadow-[0_-8px_30px_rgba(0,0,0,0.3)] py-3 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+            <p className="font-semibold text-slate-300">Contact me for your software</p>
+            <div className="flex items-center gap-4">
+              <a href="tel:07014704943" className="inline-flex items-center gap-1.5 hover:text-brand-400 transition-colors font-medium">
+                <Phone className="w-3.5 h-3.5 text-brand-500" />
+                07014704943
+              </a>
+              <span className="text-slate-700 hidden sm:inline">•</span>
+              <a href="https://x.com/NijaDeveloper" target="_blank" rel="noopener noreferrer" className="hover:text-brand-400 transition-colors font-medium">
+                NijaDeveloper
+              </a>
+            </div>
+          </div>
+        </footer>
       </div>
     )
   }
@@ -325,86 +344,105 @@ export default function ReviewerPortal() {
     const pendingEmployees = rosterData?.pending_employees || []
 
     return (
-      <div className="flex-1 min-h-screen bg-slate-950 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden">
+      <div className="flex-1 min-h-screen bg-slate-950 flex flex-col relative overflow-hidden pb-16">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-500/10 rounded-full blur-[120px] pointer-events-none"></div>
 
-        <div className="sm:mx-auto sm:w-full sm:max-w-md relative z-10 text-center px-4">
-          <h2 className="text-3xl font-extrabold text-white tracking-tight">
-            Identify Yourself
-          </h2>
-          <p className="mt-2 text-sm text-slate-400">
-            Select your name to sign into the <strong className="text-slate-300 font-semibold">{rosterData?.department_name || 'Department'}</strong> appraisal cycle <strong className="text-slate-300 font-semibold">({rosterData?.period_name || 'Active Cycle'})</strong>
-          </p>
-        </div>
+        <div className="flex-grow flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+          <div className="sm:mx-auto sm:w-full sm:max-w-md relative z-10 text-center px-4">
+            <h2 className="text-3xl font-extrabold text-white tracking-tight">
+              Identify Yourself
+            </h2>
+            <p className="mt-2 text-sm text-slate-400">
+              Select your name to sign into the <strong className="text-slate-300 font-semibold">{rosterData?.department_name || 'Department'}</strong> appraisal cycle <strong className="text-slate-300 font-semibold">({rosterData?.period_name || 'Active Cycle'})</strong>
+            </p>
+          </div>
 
-        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10 px-4">
-          <div className="bg-slate-900/60 backdrop-blur-xl py-8 px-6 border border-slate-800 shadow-2xl rounded-2xl sm:px-10">
-            <form className="space-y-5" onSubmit={handleReviewerLogin}>
+          <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10 px-4">
+            <div className="bg-slate-900/60 backdrop-blur-xl py-8 px-6 border border-slate-800 shadow-2xl rounded-2xl sm:px-10">
+              <form className="space-y-5" onSubmit={handleReviewerLogin}>
 
-              <div>
-                <label className="block text-sm font-medium text-slate-300">
-                  Select Your Name
-                </label>
-                {rosterLoading ? (
-                  <div className="mt-1 flex items-center gap-2 text-slate-400 text-sm py-2.5">
-                    <div className="w-4 h-4 border-2 border-brand-500 border-t-transparent rounded-full animate-spin"></div>
-                    Loading roster...
-                  </div>
-                ) : (
-                  <select
-                    value={voterId}
-                    onChange={(e) => setVoterId(e.target.value)}
-                    className="mt-1 block w-full px-3 py-2.5 border border-slate-700 rounded-xl bg-slate-950 text-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent text-sm transition-all"
-                  >
-                    <option value="">-- Choose employee name --</option>
-                    {pendingEmployees.map(emp => (
-                      <option key={emp.id} value={emp.id}>{emp.name}</option>
-                    ))}
-                  </select>
-                )}
-                {!rosterLoading && pendingEmployees.length === 0 && (
-                  <p className="text-xs text-red-400 mt-2">
-                    All employees in this department have completed their evaluations for this cycle.
-                  </p>
-                )}
-              </div>
-
-              <div className="relative flex items-start bg-slate-950/40 border border-slate-800/80 p-4 rounded-xl">
-                <div className="flex h-5 items-center">
-                  <input
-                    id="agree"
-                    type="checkbox"
-                    checked={agreeTerms}
-                    onChange={(e) => setAgreeTerms(e.target.checked)}
-                    className="h-4 w-4 rounded border-slate-700 bg-slate-950 text-brand-600 focus:ring-brand-500 focus:ring-offset-slate-900"
-                  />
-                </div>
-                <div className="ml-3 text-xs leading-5 text-slate-300">
-                  <label htmlFor="agree" className="font-medium cursor-pointer">
-                    I confirm that I am selecting my own name. I understand that my scores will be recorded anonymously and cannot be traced back to me, but that my participation in this cycle will be logged.
+                <div>
+                  <label className="block text-sm font-medium text-slate-300">
+                    Select Your Name
                   </label>
+                  {rosterLoading ? (
+                    <div className="mt-1 flex items-center gap-2 text-slate-400 text-sm py-2.5">
+                      <div className="w-4 h-4 border-2 border-brand-500 border-t-transparent rounded-full animate-spin"></div>
+                      Loading roster...
+                    </div>
+                  ) : (
+                    <select
+                      value={voterId}
+                      onChange={(e) => setVoterId(e.target.value)}
+                      className="mt-1 block w-full px-3 py-2.5 border border-slate-700 rounded-xl bg-slate-950 text-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent text-sm transition-all"
+                    >
+                      <option value="">-- Choose employee name --</option>
+                      {pendingEmployees.map(emp => (
+                        <option key={emp.id} value={emp.id}>{emp.name}</option>
+                      ))}
+                    </select>
+                  )}
+                  {!rosterLoading && pendingEmployees.length === 0 && (
+                    <p className="text-xs text-red-400 mt-2">
+                      All employees in this department have completed their evaluations for this cycle.
+                    </p>
+                  )}
                 </div>
-              </div>
 
-              <div className="flex gap-3">
-                <button
-                  type="button"
-                  onClick={handleReviewerLogout}
-                  className="flex-1 py-2.5 px-4 border border-slate-700 rounded-xl text-slate-300 hover:bg-slate-800 text-sm font-semibold transition-all"
-                >
-                  Change Code
-                </button>
-                <button
-                  type="submit"
-                  disabled={loading || rosterLoading || pendingEmployees.length === 0}
-                  className="flex-1 py-2.5 px-4 border border-transparent rounded-xl text-white bg-brand-600 hover:bg-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500 font-semibold text-sm disabled:opacity-50 transition-all"
-                >
-                  {loading ? 'Entering...' : 'Start Evaluation'}
-                </button>
-              </div>
-            </form>
+                <div className="relative flex items-start bg-slate-950/40 border border-slate-800/80 p-4 rounded-xl">
+                  <div className="flex h-5 items-center">
+                    <input
+                      id="agree"
+                      type="checkbox"
+                      checked={agreeTerms}
+                      onChange={(e) => setAgreeTerms(e.target.checked)}
+                      className="h-4 w-4 rounded border-slate-700 bg-slate-950 text-brand-600 focus:ring-brand-500 focus:ring-offset-slate-900"
+                    />
+                  </div>
+                  <div className="ml-3 text-xs leading-5 text-slate-300">
+                    <label htmlFor="agree" className="font-medium cursor-pointer">
+                      I confirm that I am selecting my own name. I understand that my scores will be recorded anonymously and cannot be traced back to me, but that my participation in this cycle will be logged.
+                    </label>
+                  </div>
+                </div>
+
+                <div className="flex gap-3">
+                  <button
+                    type="button"
+                    onClick={handleReviewerLogout}
+                    className="flex-1 py-2.5 px-4 border border-slate-700 rounded-xl text-slate-300 hover:bg-slate-800 text-sm font-semibold transition-all"
+                  >
+                    Change Code
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={loading || rosterLoading || pendingEmployees.length === 0}
+                    className="flex-1 py-2.5 px-4 border border-transparent rounded-xl text-white bg-brand-600 hover:bg-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500 font-semibold text-sm disabled:opacity-50 transition-all"
+                  >
+                    {loading ? 'Entering...' : 'Start Evaluation'}
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
+
+        {/* Developer Contact Footer */}
+        <footer className="fixed bottom-0 left-0 right-0 z-50 bg-slate-900/60 backdrop-blur-md border-t border-slate-800/80 shadow-[0_-8px_30px_rgba(0,0,0,0.3)] py-3 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+            <p className="font-semibold text-slate-300">Contact me for your software</p>
+            <div className="flex items-center gap-4">
+              <a href="tel:07014704943" className="inline-flex items-center gap-1.5 hover:text-brand-400 transition-colors font-medium">
+                <Phone className="w-3.5 h-3.5 text-brand-500" />
+                07014704943
+              </a>
+              <span className="text-slate-700 hidden sm:inline">•</span>
+              <a href="https://x.com/NijaDeveloper" target="_blank" rel="noopener noreferrer" className="hover:text-brand-400 transition-colors font-medium">
+                NijaDeveloper
+              </a>
+            </div>
+          </div>
+        </footer>
       </div>
     )
   }
@@ -413,29 +451,30 @@ export default function ReviewerPortal() {
   const currentColleague = sessionData?.colleagues?.find(c => c.id === selectedColleagueId)
 
   return (
-    <div className="flex-1 flex flex-col bg-slate-950">
+    <div className="flex-1 flex flex-col bg-slate-950 pb-16">
       {/* Header bar */}
-      <header className="bg-slate-900 border-b border-slate-800 sticky top-0 z-20">
+      <header className="bg-slate-900/80 backdrop-blur-md border-b border-slate-800/80 sticky top-0 z-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Award className="w-6 h-6 text-brand-400" />
             <div>
-              <h1 className="text-lg font-bold text-white">Peer appraisal console</h1>
+              <h1 className="text-base sm:text-lg font-bold text-white">Peer appraisal console</h1>
               <p className="text-xs text-slate-400">
-                Department: <strong className="text-slate-300">{sessionData?.department_name}</strong> | Cycle: <strong className="text-slate-300">{sessionData?.period_name}</strong>
+                <span className="hidden sm:inline">Department: </span><strong className="text-slate-300">{sessionData?.department_name}</strong> <span className="text-slate-600 sm:inline">|</span> <span className="hidden sm:inline">Cycle: </span><strong className="text-slate-300">{sessionData?.period_name}</strong>
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-4">
-            <span className="text-xs text-slate-400 hidden sm:inline">
+          <div className="flex items-center gap-2 sm:gap-4">
+            <span className="text-xs text-slate-400 hidden md:inline">
               Voter: <strong className="text-slate-200">{authState.voter_name}</strong>
             </span>
             <button
               onClick={handleReviewerLogout}
-              className="inline-flex items-center gap-2 px-3 py-1.5 border border-slate-700 rounded-lg text-xs font-semibold text-slate-300 hover:bg-slate-800 transition-all"
+              className="inline-flex items-center justify-center w-8 h-8 sm:w-auto sm:h-auto sm:px-3 sm:py-1.5 border border-slate-700 rounded-lg text-xs font-semibold text-slate-300 hover:bg-slate-800 transition-all"
+              title="Exit Session"
             >
               <LogOut className="w-3.5 h-3.5" />
-              Exit Session
+              <span className="hidden sm:inline ml-1.5">Exit Session</span>
             </button>
           </div>
         </div>
@@ -750,6 +789,23 @@ export default function ReviewerPortal() {
           )}
         </main>
       </div>
+
+      {/* Developer Contact Footer */}
+      <footer className="fixed bottom-0 left-0 right-0 z-50 bg-slate-900/60 backdrop-blur-md border-t border-slate-800/80 shadow-[0_-8px_30px_rgba(0,0,0,0.3)] py-3 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+          <p className="font-semibold text-slate-300">Contact me for your software</p>
+          <div className="flex items-center gap-4">
+            <a href="tel:07014704943" className="inline-flex items-center gap-1.5 hover:text-brand-400 transition-colors font-medium">
+              <Phone className="w-3.5 h-3.5 text-brand-500" />
+              07014704943
+            </a>
+            <span className="text-slate-700 hidden sm:inline">•</span>
+            <a href="https://x.com/NijaDeveloper" target="_blank" rel="noopener noreferrer" className="hover:text-brand-400 transition-colors font-medium">
+              NijaDeveloper
+            </a>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
