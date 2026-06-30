@@ -598,12 +598,12 @@ export default function ReviewerPortal() {
                 return (
                   <div className="space-y-6">
                     {/* Visual Progress Steps Bar */}
-                    <div className="flex items-center justify-between bg-slate-950/40 px-4 py-3 border border-slate-800 rounded-xl">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between bg-slate-950/40 p-4 border border-slate-800 rounded-xl gap-3">
                       <span className="text-xs font-semibold text-slate-400">
                         KPI Evaluation: <strong className="text-white">{activeKpiIndex + 1}</strong> of <strong className="text-slate-300">{kpis.length}</strong>
                       </span>
                       {/* Interactive skip dots */}
-                      <div className="flex gap-1.5 overflow-x-auto max-w-[200px] sm:max-w-none pr-1">
+                      <div className="flex gap-2 overflow-x-auto max-w-full sm:max-w-none pb-1 sm:pb-0 scrollbar-none snap-x snap-mandatory">
                         {kpis.map((item, dotIdx) => {
                           const isDotActive = dotIdx === activeKpiIndex
                           const hasScore = colleagueRatings[item.id] !== undefined
@@ -612,12 +612,12 @@ export default function ReviewerPortal() {
                               key={item.id}
                               type="button"
                               onClick={() => setActiveKpiIndex(dotIdx)}
-                              className={`w-3.5 h-3.5 rounded-full text-[8px] font-black flex items-center justify-center border transition-all ${
+                              className={`w-7 h-7 rounded-full text-[10px] font-bold flex items-center justify-center border transition-all shrink-0 snap-align-start ${
                                 isDotActive
                                   ? 'bg-brand-600 border-brand-400 text-white scale-110'
                                   : hasScore
                                     ? 'bg-emerald-950 border-emerald-500/40 text-emerald-400'
-                                    : 'bg-slate-950 border-slate-800 text-slate-600 hover:border-slate-700'
+                                    : 'bg-slate-950 border-slate-800 text-slate-500 hover:border-slate-700'
                               }`}
                               title={item.name}
                             >
@@ -678,16 +678,21 @@ export default function ReviewerPortal() {
                               />
 
                               {/* Custom slider ticks */}
-                              <div className="flex justify-between mt-2.5 px-0.5 text-[10px] font-bold text-slate-500">
+                              <div className="flex justify-between mt-4 px-0.5">
                                 {[1, 2, 3, 4, 5].map((tick) => {
                                   const isSelected = selectedScore === tick && !isNA
                                   return (
                                     <button
                                       key={tick}
                                       type="button"
+                                      disabled={isNA}
                                       onClick={() => handleSetScore(selectedColleagueId, kpi.id, tick)}
-                                      className={`transition-all hover:text-slate-200 ${
-                                        isSelected ? 'text-brand-400 scale-110 font-black' : ''
+                                      className={`w-11 h-11 rounded-full text-xs font-bold flex items-center justify-center border transition-all ${
+                                        isNA 
+                                          ? 'bg-slate-950/20 border-slate-900 text-slate-700 cursor-not-allowed'
+                                          : isSelected 
+                                            ? 'bg-brand-600 border-brand-400 text-white scale-110 shadow-lg shadow-brand-500/20' 
+                                            : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700'
                                       }`}
                                     >
                                       {tick}
@@ -703,9 +708,9 @@ export default function ReviewerPortal() {
                             <button
                               type="button"
                               onClick={() => handleSetScore(selectedColleagueId, kpi.id, isNA ? 3 : null)}
-                              className={`w-full md:w-20 py-2.5 px-4 border font-bold text-xs rounded-xl transition-all flex items-center justify-center gap-1.5 ${
+                              className={`w-full md:w-20 h-11 border font-bold text-xs rounded-xl transition-all flex items-center justify-center gap-1.5 ${
                                 isNA
-                                  ? 'bg-slate-800 border-slate-700 text-white shadow-lg'
+                                  ? 'bg-slate-800 border-slate-700 text-white shadow-lg shadow-amber-500/5'
                                   : 'bg-slate-950 border-slate-800/80 text-slate-500 hover:text-slate-300 hover:border-slate-700'
                               }`}
                             >
@@ -766,9 +771,9 @@ export default function ReviewerPortal() {
                           setSelectedColleagueId(nextColleague.id)
                           window.scrollTo({ top: 0, behavior: 'smooth' })
                         }}
-                        className="inline-flex items-center gap-2 px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold rounded-xl text-xs transition-all"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold rounded-xl text-xs transition-all w-full sm:w-auto justify-center"
                       >
-                        Next Peer ({nextColleague.name})
+                        Next Peer ({nextColleague.name.slice(0, 12)}{nextColleague.name.length > 12 ? '...' : ''})
                         <ChevronRight className="w-4 h-4" />
                       </button>
                     )

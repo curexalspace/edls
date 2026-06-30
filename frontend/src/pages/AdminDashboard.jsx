@@ -370,7 +370,7 @@ export default function AdminDashboard() {
         
 
         {/* Stats Grid cards */}
-        <section className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg flex items-center gap-4">
             <div className="bg-brand-500/10 p-3 rounded-xl text-brand-400 border border-brand-500/20">
               <Building className="w-5 h-5" />
@@ -381,6 +381,15 @@ export default function AdminDashboard() {
             </div>
           </div>
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg flex items-center gap-4">
+            <div className="bg-violet-500/10 p-3 rounded-xl text-violet-400 border border-violet-500/20">
+              <Building className="w-5 h-5" />
+            </div>
+            <div>
+              <p className="text-xs text-slate-500 font-semibold uppercase">Total Departments</p>
+              <h4 className="text-xl font-bold text-white mt-0.5">{stats?.total_departments || 0}</h4>
+            </div>
+          </div>
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg flex items-center gap-4">
             <div className="bg-emerald-500/10 p-3 rounded-xl text-emerald-400 border border-emerald-500/20">
               <Users className="w-5 h-5" />
             </div>
@@ -391,15 +400,6 @@ export default function AdminDashboard() {
           </div>
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg flex items-center gap-4">
             <div className="bg-brand-500/10 p-3 rounded-xl text-brand-400 border border-brand-500/20">
-              <Users className="w-5 h-5" />
-            </div>
-            <div>
-              <p className="text-xs text-slate-500 font-semibold uppercase">Total Employees</p>
-              <h4 className="text-xl font-bold text-white mt-0.5">{stats?.total_employees || 0}</h4>
-            </div>
-          </div>
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg flex items-center gap-4">
-            <div className="bg-emerald-500/10 p-3 rounded-xl text-emerald-400 border border-emerald-500/20">
               <Calendar className="w-5 h-5" />
             </div>
             <div className="min-w-0">
@@ -553,7 +553,7 @@ export default function AdminDashboard() {
                       <span className="text-sm font-medium text-slate-300">{comp.name}</span>
                       <button
                         onClick={() => handleDeleteCompany(comp.id)}
-                        className="opacity-0 group-hover:opacity-100 text-red-400 hover:text-red-300 p-1.5 transition-all rounded-lg hover:bg-red-950/20"
+                        className="opacity-100 md:opacity-0 md:group-hover:opacity-100 text-red-400 hover:text-red-300 p-1.5 transition-all rounded-lg hover:bg-red-950/20"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -570,12 +570,12 @@ export default function AdminDashboard() {
                 <h3 className="text-md font-bold text-white mb-4">Manage Departments</h3>
 
                 <form onSubmit={handleCreateDept} className="space-y-3 mb-6 bg-slate-950/40 p-4 border border-slate-800 rounded-xl">
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     <select
                       required
                       value={newDeptCompanyId}
                       onChange={(e) => setNewDeptCompanyId(e.target.value)}
-                      className="px-3 py-2 border border-slate-700 rounded-xl bg-slate-950 text-white focus:outline-none focus:ring-2 focus:ring-brand-500 text-xs"
+                      className="px-3 py-2 border border-slate-700 rounded-xl bg-slate-950 text-white focus:outline-none focus:ring-2 focus:ring-brand-500 text-xs w-full"
                     >
                       <option value="">Select Company...</option>
                       {(departmentsData?.companies || []).map(comp => (
@@ -587,7 +587,7 @@ export default function AdminDashboard() {
                       required
                       value={newDeptName}
                       onChange={(e) => setNewDeptName(e.target.value)}
-                      className="px-3 py-2 border border-slate-700 rounded-xl bg-slate-950 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent text-xs"
+                      className="px-3 py-2 border border-slate-700 rounded-xl bg-slate-950 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent text-xs w-full"
                       placeholder="Department name..."
                     />
                   </div>
@@ -611,7 +611,7 @@ export default function AdminDashboard() {
                       </div>
                       <button
                         onClick={() => handleDeleteDept(dept.id)}
-                        className="opacity-0 group-hover:opacity-100 text-red-400 hover:text-red-300 p-1.5 transition-all rounded-lg hover:bg-red-950/20"
+                        className="opacity-100 md:opacity-0 md:group-hover:opacity-100 text-red-400 hover:text-red-300 p-1.5 transition-all rounded-lg hover:bg-red-950/20"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -721,7 +721,7 @@ export default function AdminDashboard() {
                           <td className="py-3 text-right">
                             <button
                               onClick={() => handleDeleteEmployee(emp.id)}
-                              className="opacity-0 group-hover:opacity-100 text-red-400 hover:text-red-300 p-1.5 transition-all rounded-lg hover:bg-red-950/20"
+                              className="opacity-100 md:opacity-0 md:group-hover:opacity-100 text-red-400 hover:text-red-300 p-1.5 transition-all rounded-lg hover:bg-red-950/20"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
                             </button>
@@ -817,7 +817,7 @@ export default function AdminDashboard() {
                             <td className="py-3 text-right">
                               <button
                                 onClick={() => handleDeleteKey(c.id)}
-                                className="opacity-0 group-hover:opacity-100 text-red-400 hover:text-red-300 p-1.5 transition-all rounded-lg hover:bg-red-950/20"
+                                className="opacity-100 md:opacity-0 md:group-hover:opacity-100 text-red-400 hover:text-red-300 p-1.5 transition-all rounded-lg hover:bg-red-950/20"
                               >
                                 <Trash2 className="w-3.5 h-3.5" />
                               </button>

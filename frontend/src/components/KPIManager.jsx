@@ -128,21 +128,21 @@ export default function KPIManager() {
           </div>
         </div>
 
-        <div className="relative">
+        <div className="relative w-full md:w-96">
           <select
             value={selectedDeptId}
             onChange={(e) => {
               setSelectedDeptId(e.target.value)
               setShowForm(false)
             }}
-            className="block w-full md:w-96 px-4 py-2.5 border border-slate-700 rounded-xl bg-slate-950 text-white focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm appearance-none cursor-pointer"
+            className="block w-full px-4 py-2.5 pr-10 border border-slate-700 rounded-xl bg-slate-950 text-white focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm appearance-none cursor-pointer"
           >
             <option value="">Choose a Department...</option>
             {departments.map(d => (
               <option key={d.id} value={d.id}>{d.name} ({d.company_name})</option>
             ))}
           </select>
-          <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 pointer-events-none md:left-[22.5rem] md:right-auto" />
+          <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 pointer-events-none" />
         </div>
       </div>
 
@@ -269,7 +269,7 @@ export default function KPIManager() {
                   <button
                     onClick={() => handleDeleteKPI(kpi)}
                     disabled={deleting === kpi.id}
-                    className="shrink-0 opacity-0 group-hover:opacity-100 text-red-400 hover:text-red-300 p-2 rounded-lg hover:bg-red-950/20 transition-all disabled:opacity-50"
+                    className="shrink-0 opacity-100 md:opacity-0 md:group-hover:opacity-100 text-red-400 hover:text-red-300 p-2 rounded-lg hover:bg-red-950/20 transition-all disabled:opacity-50"
                     title="Delete this KPI"
                   >
                     {deleting === kpi.id ? (
