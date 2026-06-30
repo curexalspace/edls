@@ -1,0 +1,31 @@
+# IDE/editor folders
+.idea/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Sensitive files
+.env
+.env.local
+.env.*.local
+*.pem
+
+# Go Ignore
+apprasal_test.exe
+apprasal.exe
+*.exe
+*.test
+*.prof
+dist/
+
+# Frontend Ignore
+frontend/node_modules/
+frontend/dist/
+frontend/.eslintcache
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/.pnp*
+frontend/.yarn/
