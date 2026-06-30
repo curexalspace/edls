@@ -1,0 +1,36 @@
+# Workspace ignores
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Sensitive files
+.env
+.env.local
+.env.*.local
+*.pem
+
+# Go Ignore
+apprasal/apprasal_test.exe
+apprasal/apprasal.exe
+apprasal/*.exe
+apprasal/*.test
+apprasal/*.prof
+apprasal/dist/
+
+# Frontend (Node / React) Ignore
+apprasal/frontend/node_modules/
+apprasal/frontend/dist/
+apprasal/frontend/.eslintcache
+apprasal/frontend/npm-debug.log*
+apprasal/frontend/yarn-debug.log*
+apprasal/frontend/yarn-error.log*
+apprasal/frontend/.pnp*
+apprasal/frontend/.yarn/
