@@ -1,0 +1,16 @@
+node_modules
+frontend/node_modules
+dist
+frontend/dist
+.env
+.env.*
+*.exe
+*.test
+.git
+.gitignore
+.vscode
+.idea
+scratch/
+README.md
+Dockerfile
+.dockerignore
